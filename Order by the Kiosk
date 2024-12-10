@@ -1,0 +1,29 @@
+class Queue {
+  constructor() {
+    this.items = [];
+  }
+
+  enqueue(item) {
+    this.items.push(item);
+  }
+
+  dequeue() {
+    return this.items.shift();
+  }
+
+  isEmpty() {
+    return this.items.length === 0;
+  }
+}
+
+let orderQueue = new Queue();
+
+// Example orders
+orderQueue.enqueue(["pizza", "coke"]);
+orderQueue.enqueue(["burger", "fries"]);
+
+while (!orderQueue.isEmpty()) {
+  let currentOrder = orderQueue.dequeue();
+  console.log("Processing Order:", currentOrder);
+  // ... (Process the order, e.g., simulate cooking, billing)
+}
