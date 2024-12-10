@@ -1,0 +1,47 @@
+class BankAccount {
+  constructor(name, initialBalance) {
+    this.name = name;
+    this.balance = initialBalance;
+  }
+
+  deposit(amount) {
+    this.balance += amount;
+    console.log(`Deposit of $${amount} successful. New balance: $${this.balance}`);
+  }
+
+  withdraw(amount) {
+    if (this.balance >= amount) {
+      this.balance -= amount;
+      console.log(`Withdrawal of $${amount} successful. New balance: $${this.balance}`);
+    } else {
+      console.log("Insufficient funds.");
+    }
+  }
+
+  getBalance() {
+    console.log(`Current balance for ${this.name}: $${this.balance}`);
+  }
+}
+
+let accounts = [];
+let transactions = [];
+
+// Create accounts
+accounts.push(new BankAccount("Joshua", 1000));
+accounts.push(new BankAccount("Jerlyn", 500));
+
+// Example transactions
+accounts[0].deposit(200);
+accounts[1].withdraw(100);
+
+// Log transactions
+transactions.push({ type: "deposit", amount: 200, account: "Joshua", date: new Date() });
+transactions.push({ type: "withdraw", amount: 100, account: "Jerlyn", date: new Date() });
+
+// Check balances
+accounts[0].getBalance();
+accounts[1].getBalance();
+
+// Sort transactions by date (ascending)
+transactions.sort((a, b) => a.date - b.date);
+console.log("Sorted Transactions:", transactions);
