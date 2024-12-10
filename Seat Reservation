@@ -1,0 +1,58 @@
+function createSeatingChart(rows, columns) {
+  let seats = [];
+  for (let i = 0; i < rows; i++) {
+    let row = [];
+    for (let j = 0; j < columns; j++) {
+      row.push(false); // Initially all seats are available
+    }
+    seats.push(row);
+  }
+  return seats;
+}
+
+function displaySeatingChart(seats) {
+  for (let i = 0; i < seats.length; i++) {
+    let row = seats[i];
+    let rowString = "";
+    for (let j = 0; j < row.length; j++) {
+      rowString += row[j] ? "X" : "O"; // X for occupied, O for available
+    }
+    console.log(rowString);
+  }
+}
+
+function makeReservation(seats, reservations, seat, name) {
+  let row = seat[0];
+  let col = seat[1];
+
+  if (!seats[row][col]) {
+    seats[row][col] = true;
+    reservations[seat] = { name: name };
+    console.log(`Reservation successful for seat ${seat} for ${name}`);
+  } else {
+    console.log(`Seat ${seat} is already occupied.`);
+  }
+}
+
+function cancelReservation(seats, reservations, seat) {
+  if (reservations[seat]) {
+    seats[seat[0]][seat[1]] = false;
+    delete reservations[seat];
+    console.log(`Reservation for seat ${seat} cancelled.`);
+  } else {
+    console.log(`No reservation found for seat ${seat}.`);
+  }
+}
+
+let seats = createSeatingChart(5, 10); // Create a 5x10 seating chart
+let reservations = {}; // Initialize reservations dictionary
+
+// Example reservations
+makeReservation(seats, reservations, [2, 3], "Kaye");
+makeReservation(seats, reservations, [1, 5], "Jonathan");
+
+displaySeatingChart(seats); // Show the seating chart
+
+cancelReservation(seats, reservations, [2, 3]); // Cancel Kaye's reservation
+
+displaySeatingChart(seats); // Show the updated seating chart
